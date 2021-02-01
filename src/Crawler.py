@@ -5,11 +5,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 class Crawler:
     """
+      |  Classe genérica de web crawler.
+      |
       |   Parameters
       |  ----------
       |  driver : selenium.webdriver.Chrome
-      |      driver Chrome responsável por gerenciar, automatizar ações com o
-      |      navegador Chrome
+      |     Driver Chrome responsável por gerenciar, automatizar ações de
+      |     navegação web usando o Chrome browser.
+      |     Permite maior interação com a página e recuperar elementos de
+      |     carregamento dinâmico (javascript).
       |
       |  ----------
       |
@@ -24,9 +28,47 @@ class Crawler:
         self.driver.get(url)
 
     def scrape_link(self, xpath):
+        """
+          |  Procura na página o padrão passado xpath e extrai um link.
+          |            |
+          |   Parameters
+          |  ----------
+          |  xpath : str
+          |     xpath padrão relativo ao elemento clicável de onde se deseja
+          |     extrair o link (atributo href)
+          |
+          |  ----------
+          |
+          |   Returns str
+          |     string com link.
+          |
+          """
         return self.driver.find_element_by_xpath(xpath).get_attribute('href')
 
-    def load_more(self, xpath, patience_time=3000):
+    def load_more_wait_preloader(self, xpath, xpath_preloader, patience_time=3000):
+        """
+          |  Interage com a página para que o conteúdo seja totalmente carregado.
+          |  Ex.: botões `load more`
+          |
+          |   Parameters
+          |  ----------
+          |  xpath : str
+          |     xpath padrão relativo ao elemento clicável responsável por carregar
+          |     o conteúdo na página (link, input, button, ...)
+          |
+          |  xpath_preloader : str
+          |     xpath padrão, ou classe, relativo ao elemento que se deseja esperar que fique
+          |     invisível.
+          |     Ex.: pre loader animações.
+          |
+          |   patience_time : int
+          |     Tempo de espera utilizado com a classe WebDriverWait
+          |
+          |  ----------
+          |
+          |   Returns
+          |
+          """
         from selenium.common.exceptions import ElementClickInterceptedException
         from selenium.common.exceptions import NoSuchElementException
 
@@ -45,7 +87,7 @@ class Crawler:
                     self.driver, patience_time
                 ).until(
                     EC.invisibility_of_element(
-                        (By.CLASS_NAME, 'load-more-pre-loader')
+                        (By.CLASS_NAME, xpath_preloader)
                     )
                 )
                 self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
