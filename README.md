@@ -5,7 +5,7 @@ webcrawler-rdp
 Web Crawler Teste - Selenium, webdriver, python, beautifulsoup
 ***
 
-![diagrama](classes/classes.png)
+![diagrama](src/classes.png)
 ***
 ## Instruções 
 ***
