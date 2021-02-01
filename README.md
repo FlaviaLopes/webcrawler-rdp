@@ -20,7 +20,7 @@ Web Crawler Teste - Selenium, webdriver, python, beautifulsoup
 > 4. criar .env e adicionar variáveis (opcional):
 >	- chromedriver_path=local/do/webdriver 
 >	- valores dos campos do formulário a ser preenchido
-
+> 5. no diretório raiz do projeto ative o ambiente de desenvolvimento e rode `python -m src.main`
 ***
 ## Checklist
 ***
