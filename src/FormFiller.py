@@ -26,4 +26,4 @@ class FormFiller(Crawler):
         """
         for xpath, content in fields_to_fill.items():
             self.driver.find_element_by_xpath(xpath).send_keys(content)
-        self.__driver.find_element_by_xpath(button_xpath).click()
+        self.driver.find_element_by_xpath(button_xpath).click()
